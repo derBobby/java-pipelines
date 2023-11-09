@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - "*"
+  workflow_dispatch:
+
+jobs:
+  library-test-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Git
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Test and publish to GitHub Packages
+      run: mvn --batch-mode deploy --file pom.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
