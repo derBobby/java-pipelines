@@ -1,9 +1,6 @@
-name: Test
+name: Template file
 
 on:
-  push:
-    branches:
-    - "*"
   workflow_dispatch:
 
 jobs:
