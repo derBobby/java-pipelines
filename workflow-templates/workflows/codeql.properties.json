@@ -1,0 +1,12 @@
+{
+  "name": "Code analysis",
+  "description": "Starter workflow to analyze Java code.",
+  "iconName": "octigon beaker",
+  "categories": [
+    "Maven",
+    "code-quality"
+  ],
+  "filePatterns": [
+    "pom.xml"
+  ]
+}

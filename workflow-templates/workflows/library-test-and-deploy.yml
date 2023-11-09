@@ -1,0 +1,30 @@
+# Source for this starter workflow
+# https://docs.github.com/en/actions/using-workflows/creating-starter-workflows-for-your-organization
+
+name: Test
+
+on:
+  pull_request:
+    branches: [ $default-branch ]
+  push:
+    branches: [ $default-branch ]
+  workflow_dispatch:
+
+jobs:
+  library-test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Git
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Publish to packages
+        run: mvn --batch-mode --file pom.xml deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
