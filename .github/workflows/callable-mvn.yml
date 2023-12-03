@@ -6,6 +6,10 @@ on:
       mvn-stage:
         required: true
         type: string
+      cache-jar:
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   maven:
@@ -13,6 +17,14 @@ jobs:
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
+
+      - if: ${{ inputs.cache-jar == true }}
+        name: Cache JAR file
+        uses: actions/cache@v2
+        with:
+          path: ./target
+          key: ${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
