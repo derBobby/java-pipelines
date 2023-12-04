@@ -17,14 +17,6 @@ jobs:
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
-
-      - if: ${{ inputs.cache-jar == true }}
-        name: Cache JAR file
-        uses: actions/cache@v2
-        with:
-          path: ./target
-          key: ${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}
-
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -35,3 +27,9 @@ jobs:
         run: mvn --batch-mode --file pom.xml ${{ inputs.mvn-stage }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: ${{ inputs.cache-jar == true }}
+        name: Cache JAR file
+        uses: actions/cache@v2
+        with:
+          path: ./target
+          key: ${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}
