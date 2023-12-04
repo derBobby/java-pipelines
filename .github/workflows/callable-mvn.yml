@@ -35,7 +35,7 @@ jobs:
     outputs:
       cache-key: ${{ steps.cache-key-step.outputs.cache-key }}
 ########################
-      cache-key-m2: ${{ steps.cache-key-m2-step.outputs.cache-key }}
+      cache-key-m2: ${{ steps.cache-key-m2-step.outputs.cache-key-m2 }}
 ########################
     steps:
       - name: Checkout Git
