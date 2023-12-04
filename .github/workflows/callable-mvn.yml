@@ -32,7 +32,11 @@ jobs:
       - if: ${{ inputs.cache-jar == true }}
         id: cache-key-step
         name: Create cache key
-        run: echo "::set-output name=cache-key::${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}"
+        run: echo "cache-key=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> $GITHUB_OUTPUT
+
+      - if: ${{ inputs.cache-jar == true }}
+        run: |
+          echo "Cache key is: ${{ steps.cache-key-step.outputs.test }}"
 
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
