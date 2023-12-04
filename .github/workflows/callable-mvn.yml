@@ -20,6 +20,9 @@ on:
       cache-key:
         value: ${{ jobs.maven.outputs.cache-key }}
         description: Key for the cache that contains the buildable JAR
+      cache-key-m2:
+        value: ${{ jobs.maven.outputs.cache-key-m2 }}
+        description: Key for the cache that contains the m2 repository
 
 jobs:
   maven:
