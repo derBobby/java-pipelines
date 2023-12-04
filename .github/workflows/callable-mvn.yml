@@ -45,7 +45,7 @@ jobs:
       - if: ${{ inputs.cache-jar == true }}
         name: DEBUG
         run: |
-          find ./target -f
+          find ./target -type f
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
         uses: actions/cache@v2
