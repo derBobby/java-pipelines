@@ -2,7 +2,13 @@ name: "Callable CodeQL"
 
 on:
   workflow_call:
-
+########################
+    inputs:
+      cache-key-m2:
+        required: false
+        default: false
+        type: boolean
+########################
 jobs:
   analyze:
     name: Analyze
@@ -15,6 +21,15 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+########################
+    - if: ${{ inputs.cache-key-m2 }}
+      name: Download m2 from cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ inputs.cache-key-m2 }}
+        fail-on-cache-miss: true
+########################
     # Probably required because codeql uses gradle
     - name: Set up JDK 17
       uses: actions/setup-java@v3

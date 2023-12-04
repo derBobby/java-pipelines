@@ -10,6 +10,12 @@ on:
         required: false
         default: false
         type: boolean
+########################
+      cache-m2:
+        required: false
+        default: false
+        type: boolean
+########################
     outputs:
       cache-key:
         value: ${{ jobs.maven.outputs.cache-key }}
@@ -22,6 +28,9 @@ jobs:
       CACHE_KEY: ''
     outputs:
       cache-key: ${{ steps.cache-key-step.outputs.cache-key }}
+########################
+      cache-key-m2: ${{ steps.cache-key-m2-step.outputs.cache-key }}
+########################
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
@@ -48,3 +57,18 @@ jobs:
         with:
           path: ./target
           key: ${{ env.CACHE_KEY }}
+########################
+      - if: ${{ inputs.cache-m2 == true }}
+        id: cache-key-m2-step
+        name: Create cache key
+        run: |
+          CACHE_KEY_M2="${{ runner.os }}-jar-${{ hashFiles('**/pom.xml') }}"
+          echo "cache-key-m2=$CACHE_KEY" >> $GITHUB_OUTPUT
+          echo "CACHE_KEY_M2=$CACHE_KEY" >> $GITHUB_ENV
+      - if: ${{ inputs.cache-m2 == true }}
+        name: Cache m2 repo
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ env.CACHE_KEY_M2 }}
+########################
