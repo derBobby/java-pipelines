@@ -34,14 +34,15 @@ jobs:
       - if: ${{ inputs.cache-jar == true }}
         name: Create cache key
         run: |
-          echo "CACHE_KEY=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> GITHUB_ENV
+          CACHE_KEY=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}"
           echo "cache-key=$CACHE_KEY" >> $GITHUB_OUTPUT
+          echo "CACHE_KEY=$CACHE_KEY" >> $GITHUB_ENV
 
       - if: ${{ inputs.cache-jar == true }}
         name: DEBUG
         run: |
           echo "CACHE_KEY is $CACHE_KEY"
-          cat $GITHUB_OUTPUT
+          echo "CACHE_KEY is ${{ env.CACHE_KEY }}"
 
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
