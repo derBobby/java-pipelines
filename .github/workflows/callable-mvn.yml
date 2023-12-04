@@ -43,10 +43,6 @@ jobs:
           echo "cache-key=$CACHE_KEY" >> $GITHUB_OUTPUT
           echo "CACHE_KEY=$CACHE_KEY" >> $GITHUB_ENV
       - if: ${{ inputs.cache-jar == true }}
-        name: DEBUG
-        run: |
-          find ./target -type f
-      - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
         uses: actions/cache@v3
         with:
