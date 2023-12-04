@@ -6,8 +6,7 @@ on:
     inputs:
       cache-key-m2:
         required: false
-        default: false
-        type: boolean
+        type: string
 ########################
 jobs:
   analyze:
