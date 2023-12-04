@@ -15,7 +15,7 @@ jobs:
   maven:
     runs-on: ubuntu-latest
     outputs:
-      id: cache-key
+      cache-key
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
@@ -29,12 +29,16 @@ jobs:
         run: mvn --batch-mode --file pom.xml ${{ inputs.mvn-stage }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
       - if: ${{ inputs.cache-jar == true }}
+        id: cache-key-step
         name: Create cache key
         run: echo "::set-output name=cache-key::${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}"
+
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
         uses: actions/cache@v2
         with:
           path: ./target
-          key: ${{ outputs.cache-key }}
+          key: ${{ steps.cache-key-step.outputs.test }}
