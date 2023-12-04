@@ -14,6 +14,10 @@ on:
 jobs:
   maven:
     runs-on: ubuntu-latest
+    outputs:
+      - id: cache-key
+    env:
+      CACHE_KEY: ''
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
@@ -30,15 +34,16 @@ jobs:
 
 
       - if: ${{ inputs.cache-jar == true }}
-        id: cache-key-step
         name: Create cache key
-        run: echo "cache-key=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "CACHE_KEY=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> GITHUB_ENV
+          echo "cache-key=$CACHE_KEY" >> $GITHUB_OUTPUT
 
       - if: ${{ inputs.cache-jar == true }}
+        name: DEBUG
         run: |
-          echo "Cache key is: ${{ steps.cache-key-step.outputs.cache-key }}"
-          echo "Cache key is: ${cache-key}"
-          echo "GITHUB_OUTPUT is $GITHUB_OUTPUT"
+          echo "CACHE_KEY is $CACHE_KEY"
+          cat $GITHUB_OUTPUT
 
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
