@@ -14,8 +14,6 @@ on:
 jobs:
   maven:
     runs-on: ubuntu-latest
-    outputs:
-      - id: cache-key
     env:
       CACHE_KEY: ''
     steps:
