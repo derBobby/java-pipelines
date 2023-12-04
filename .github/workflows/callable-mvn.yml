@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       id: cache-key
-      value: ${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
@@ -31,8 +30,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - if: ${{ inputs.cache-jar == true }}
+        name: Create cache key
+        run: echo "::set-output name=cache-key::${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}"
+      - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
         uses: actions/cache@v2
         with:
           path: ./target
-          key: ${{ steps.cache-key.outputs.value }}
+          key: ${{ needs.mvn-publish.outputs.cache-key }}
