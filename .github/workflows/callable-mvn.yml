@@ -45,8 +45,7 @@ jobs:
       - if: ${{ inputs.cache-jar == true }}
         name: DEBUG
         run: |
-          echo "Cache key from env is: ${{ env.CACHE_KEY }}"
-          echo "Cache Key: ${{ steps.cache-key-step.outputs.cache-key }}"
+          find ./target -f
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
         uses: actions/cache@v2
