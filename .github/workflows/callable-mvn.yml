@@ -14,8 +14,6 @@ on:
 jobs:
   maven:
     runs-on: ubuntu-latest
-    outputs:
-      cache-key
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
