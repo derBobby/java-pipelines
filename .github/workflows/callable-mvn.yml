@@ -37,6 +37,7 @@ jobs:
       - if: ${{ inputs.cache-jar == true }}
         run: |
           echo "Cache key is: ${{ steps.cache-key-step.outputs.cache-key }}"
+          echo "Cache key is: ${cache-key}"
           echo "GITHUB_OUTPUT is $GITHUB_OUTPUT"
 
       - if: ${{ inputs.cache-jar == true }}
