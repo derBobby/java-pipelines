@@ -48,7 +48,7 @@ jobs:
           find ./target -type f
       - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ./target
           key: ${{ env.CACHE_KEY }}
