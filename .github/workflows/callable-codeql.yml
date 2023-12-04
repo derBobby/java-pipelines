@@ -34,6 +34,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: DEBUG
+      run: |
+        find . -type f
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+    - name: DEBUG
+      run: |
+        find . -type f
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
