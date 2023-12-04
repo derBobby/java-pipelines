@@ -26,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CACHE_KEY: ''
+########################
+      CACHE_KEY_M2: ''
+########################
     outputs:
       cache-key: ${{ steps.cache-key-step.outputs.cache-key }}
 ########################
