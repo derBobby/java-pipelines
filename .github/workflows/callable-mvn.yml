@@ -11,8 +11,9 @@ on:
         default: false
         type: boolean
     outputs:
-      cache-key: ${{ jobs.maven.outputs.cache-key }}
-      description: Key for the cache that contains the buildable JAR
+      cache-key:
+        value: ${{ jobs.maven.outputs.cache-key }}
+        description: Key for the cache that contains the buildable JAR
 
 jobs:
   maven:
