@@ -39,6 +39,9 @@ jobs:
           echo "cache-key=$CACHE_KEY" >> $GITHUB_OUTPUT
           echo "CACHE_KEY=$CACHE_KEY" >> $GITHUB_ENV
       - if: ${{ inputs.cache-jar == true }}
+        run: |
+          echo "Cache key from env is: ${{ env.CACHE_KEY }}"
+      - if: ${{ inputs.cache-jar == true }}
         name: Cache JAR file
         uses: actions/cache@v2
         with:
