@@ -31,12 +31,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: DEBUG
-        run: cat ~/.m2/settings.xml
       - name: Run maven (mvn ${{ inputs.mvn-stage }})
         run: mvn --batch-mode --file pom.xml ${{ inputs.mvn-stage }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - if: ${{ inputs.cache == true }}
         id: cache-key-step
         name: Create cache key

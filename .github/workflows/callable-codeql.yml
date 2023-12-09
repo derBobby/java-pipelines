@@ -22,8 +22,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: DEBUG
-      run: cat ~/.m2/settings.xml
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
