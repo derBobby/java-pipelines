@@ -23,13 +23,6 @@ jobs:
     outputs:
       cache-key: ${{ steps.cache-key-step.outputs.cache-key }}
     steps:
-      - name: Set environment variables
-        run: |
-          for param in ${{ inputs.parameters }}; do
-            key="${param%=*}"
-            value="${param#*=}"
-            echo "export $key=$value" >> $GITHUB_ENV
-          done
       - name: Checkout Git
         uses: actions/checkout@v4
       - name: Set up JDK
