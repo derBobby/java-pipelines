@@ -23,7 +23,6 @@ on:
 
 jobs:
   docker:
-    needs: mvn-publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Git
