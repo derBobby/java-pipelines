@@ -21,7 +21,6 @@ on:
 
 jobs:
   deploy:
-    needs: docker
     runs-on: ubuntu-latest
     steps:
       - name: Deploy on Server
