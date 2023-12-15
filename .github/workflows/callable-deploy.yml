@@ -1,0 +1,34 @@
+name: "Callable Deploy"
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+    secrets:
+      DEPLOYMENT_USER:
+        required: true
+      DEPLOYMENT_HOST:
+        required: true
+      DEPLOYMENT_PORT:
+        required: true
+      DEPLOYMENT_SSH_KEY:
+        required: true
+
+jobs:
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on Server
+        uses: garygrossgarten/github-action-ssh@0.7.0
+        with:
+          command: -a ${{ inputs.app }} -e ${{ inputs.environment }} -t latest
+          username: ${{ secrets.DEPLOYMENT_USER }}
+          host: ${{ secrets.DEPLOYMENT_HOST }}
+          port: ${{ secrets.DEPLOYMENT_PORT }}
+          privateKey: ${{ secrets.DEPLOYMENT_SSH_KEY }}
