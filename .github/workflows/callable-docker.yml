@@ -39,4 +39,4 @@ jobs:
         with:
           push: true
           context: ${{ github.workspace }}
-          tags: latest,${{ inputs.environment }}
+          tags: ${{ secrets.DOCKERHUB_USER }}/${{ secrets.DOCKERHUB_REPOSITORY }}:latest,${{ secrets.DOCKERHUB_USER }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ inputs.environment }}
