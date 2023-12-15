@@ -1,4 +1,4 @@
-name: "Callable CodeQL"
+name: "Callable Docker"
 
 on:
   workflow_call:
@@ -9,10 +9,6 @@ on:
       environment:
         required: true
         type: string
-    outputs:
-      cache-key:
-        value: ${{ jobs.maven.outputs.cache-key }}
-        description: Key for the cache that contains the buildable JAR
     secrets:
       DOCKERHUB_USER:
         required: true
