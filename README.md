@@ -1,7 +1,7 @@
 # Utilities
 | Repository | Status |
 | -- | -- |
-| java-pipelines | [![CD](https://github.com/derBobby/java-pipelines/actions/workflows/test-and-publish.yml/badge.svg)](https://github.com/derBobby/java-pipelines/actions/workflows/test-and-publish.yml) [![Merge Dependabot PR](https://github.com/derBobby/java-pipelines/actions/workflows/dependabot-automerge.yml/badge.svg)](https://github.com/derBobby/java-pipelines/actions/workflows/dependabot-automerge.yml) |
+| java-pipelines | [![Merge Dependabot PR](https://github.com/derBobby/java-pipelines/actions/workflows/dependabot-automerge.yml/badge.svg)](https://github.com/derBobby/java-pipelines/actions/workflows/dependabot-automerge.yml) |
 
 
 # Libraries
