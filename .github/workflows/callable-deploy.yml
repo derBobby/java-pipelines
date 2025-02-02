@@ -24,10 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy on Server
-        uses: garygrossgarten/github-action-ssh@0.8.0
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          command: -a ${{ inputs.app }} -e ${{ inputs.environment }} -t latest
           username: ${{ secrets.DEPLOYMENT_USER }}
           host: ${{ secrets.DEPLOYMENT_HOST }}
           port: ${{ secrets.DEPLOYMENT_PORT }}
-          privateKey: ${{ secrets.DEPLOYMENT_SSH_KEY }}
+          key: ${{ secrets.DEPLOYMENT_SSH_KEY }}
+          script: -a ${{ inputs.app }} -e ${{ inputs.environment }} -t latest
+          
