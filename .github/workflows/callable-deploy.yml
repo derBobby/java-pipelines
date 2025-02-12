@@ -9,6 +9,9 @@ on:
       environment:
         required: true
         type: string
+      java-app-version:
+        required: true
+        type: string
     secrets:
       DEPLOYMENT_USER:
         required: true
@@ -30,5 +33,5 @@ jobs:
           host: ${{ secrets.DEPLOYMENT_HOST }}
           port: ${{ secrets.DEPLOYMENT_PORT }}
           key: ${{ secrets.DEPLOYMENT_SSH_KEY }}
-          script: -a ${{ inputs.app }} -e ${{ inputs.environment }} -t latest
+          script: -a ${{ inputs.app }} -e ${{ inputs.environment }} -t ${{ java-app-version }}
           

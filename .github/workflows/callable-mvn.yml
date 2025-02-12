@@ -12,8 +12,11 @@ on:
         type: boolean
     outputs:
       cache-key:
-        value: ${{ jobs.maven.outputs.cache-key }}
+        value: ${{ jobs.maven.outputs.jar-cache-key }}
         description: Key for the cache that contains the buildable JAR
+      app-version:
+        value: ${{ jobs.maven.outputs.app-version }}
+        description: The version determined by semantic-release
 
 jobs:
   maven:
@@ -21,30 +24,68 @@ jobs:
     env:
       CACHE_KEY: ''
     outputs:
-      cache-key: ${{ steps.cache-key-step.outputs.cache-key }}
+      jar-cache-key: ${{ steps.cache-key-step.outputs.jar-cache-key }}
+      app-version: ${{ steps.extract-app-version.outputs.app-version }}
     steps:
       - name: Checkout Git
         uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Run maven (mvn ${{ inputs.mvn-stage }})
+
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Cache Node.js Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Semantic Release
+        id: semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Maven (mvn ${{ inputs.mvn-stage }})
         run: mvn --batch-mode --file pom.xml ${{ inputs.mvn-stage }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract app version from pom.xml
+        id: extract-app-version
+        run: |
+          echo "app-version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
       - if: ${{ inputs.cache == true }}
         id: cache-key-step
         name: Create cache key
-        run: |
-          CACHE_KEY="${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}"
-          echo "cache-key=$CACHE_KEY" >> $GITHUB_OUTPUT
-          echo "CACHE_KEY=$CACHE_KEY" >> $GITHUB_ENV
+        run: echo "jar-cache-key=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> $GITHUB_OUTPUT
+
       - if: ${{ inputs.cache == true }}
         name: Cache JAR file
         uses: actions/cache@v4
         with:
           path: ./target
-          key: ${{ env.CACHE_KEY }}
+          key: ${{ steps.cache-key-step.outputs.jar-cache-key }}
