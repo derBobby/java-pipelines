@@ -1,4 +1,5 @@
 {
+  "repositoryUrl": "git@github.com:derBobby/java-pipelines",
   "branches": ["main"],
   "plugins": [
     "@semantic-release/commit-analyzer",
