@@ -45,6 +45,11 @@ jobs:
           restore-keys: |
             maven-${{ runner.os }}-
 
+      - name: Run Maven Tests
+        run: mvn --batch-mode --file pom.xml verify
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -67,11 +72,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Maven (mvn ${{ inputs.mvn-stage }})
-        run: mvn --batch-mode --file pom.xml ${{ inputs.mvn-stage }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Extract app version from pom.xml
         id: extract-app-version
         run: |
@@ -88,3 +88,8 @@ jobs:
         with:
           path: ./target
           key: ${{ steps.cache-key-step.outputs.jar-cache-key }}
+
+      - name: Deploy to Maven (mvn ${{ inputs.mvn-stage }})
+        run: mvn --batch-mode --file pom.xml deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
