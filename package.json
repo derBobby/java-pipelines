@@ -1,0 +1,28 @@
+{
+  "name": "java-pipelines",
+  "version": "1.0.0",
+  "description": "| Repository | Status |\r | -- | -- |\r | java-pipelines | [![Merge Dependabot PR](https://github.com/derBobby/java-pipelines/actions/workflows/dependabot-automerge.yml/badge.svg)](https://github.com/derBobby/java-pipelines/actions/workflows/dependabot-automerge.yml) |",
+  "main": "index.js",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "semantic-release": "^24.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derBobby/java-pipelines.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derBobby/java-pipelines/issues"
+  },
+  "homepage": "https://github.com/derBobby/java-pipelines#readme"
+}
