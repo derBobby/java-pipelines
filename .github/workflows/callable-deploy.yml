@@ -34,4 +34,3 @@ jobs:
           port: ${{ secrets.DEPLOYMENT_PORT }}
           key: ${{ secrets.DEPLOYMENT_SSH_KEY }}
           script: -a ${{ inputs.app }} -e ${{ inputs.environment }} -t ${{ inputs.app-version }}
-          
