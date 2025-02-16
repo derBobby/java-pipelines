@@ -11,7 +11,7 @@ on:
         default: false
         type: boolean
     outputs:
-      cache-key:
+      jar-cache-key:
         value: ${{ jobs.maven.outputs.jar-cache-key }}
         description: Key for the cache that contains the buildable JAR
       app-version:
@@ -24,7 +24,7 @@ jobs:
     env:
       CACHE_KEY: ''
     outputs:
-      jar-cache-key: ${{ steps.cache-key-step.outputs.jar-cache-key }}
+      jar-cache-key: ${{ steps.jar-cache-key-step.outputs.jar-cache-key }}
       app-version: ${{ steps.extract-app-version.outputs.app-version }}
     steps:
       - name: Checkout Git
@@ -78,7 +78,7 @@ jobs:
           echo "app-version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
 
       - if: ${{ inputs.cache == true }}
-        id: cache-key-step
+        id: jar-cache-key-step
         name: Create cache key
         run: echo "jar-cache-key=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> $GITHUB_OUTPUT
 
@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ./target
-          key: ${{ steps.cache-key-step.outputs.jar-cache-key }}
+          key: ${{ steps.jar-cache-key-step.outputs.jar-cache-key }}
 
       - name: Deploy to Maven (mvn ${{ inputs.mvn-stage }})
         run: mvn --batch-mode --file pom.xml deploy -DskipTests
