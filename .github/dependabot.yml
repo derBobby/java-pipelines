@@ -4,8 +4,21 @@
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
 version: 2
+
 updates:
+
   - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    commit-message:
+      prefix: "chore(actions deps)"  # Ensures changes trigger a release
+      include: "scope"
+
+  - package-ecosystem: "npm"
+    directory: "/"  # Change if package.json is in a subdirectory
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore(npm deps)"  # Ensures changes trigger a release
+      include: "scope"
