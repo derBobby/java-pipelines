@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/derBobby/java-pipelines/compare/v4.0.4...v4.0.5) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** fix dependabot auto merge ([899beb9](https://github.com/derBobby/java-pipelines/commit/899beb94f05464810216d360390f7400e013ac2a))
+
 ## [4.0.4](https://github.com/derBobby/java-pipelines/compare/v4.0.3...v4.0.4) (2025-02-23)
 
 
