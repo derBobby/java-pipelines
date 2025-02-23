@@ -22,7 +22,6 @@
       "@semantic-release/git",
       {
         "assets": [
-          ".github/workflows/*.yml",
           "CHANGELOG.md"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
