@@ -1,0 +1,43 @@
+name: "Callable maven"
+
+on:
+  workflow_call:
+    outputs:
+      jar-cache-key:
+        value: ${{ jobs.maven.outputs.jar-cache-key }}
+        description: Key for the cache that contains the buildable JAR
+      app-version:
+        value: ${{ jobs.maven.outputs.app-version }}
+        description: The version determined by semantic-release
+
+jobs:
+  maven:
+    runs-on: ubuntu-latest
+    env:
+      CACHE_KEY: ''
+    outputs:
+      jar-cache-key: ${{ steps.jar-cache-key-step.outputs.jar-cache-key }}
+      app-version: ${{ steps.extract-app-version.outputs.app-version }}
+    steps:
+      - name: Checkout Git
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
+
+      - name: Run Maven Tests
+        run: mvn --batch-mode --file pom.xml verify
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
