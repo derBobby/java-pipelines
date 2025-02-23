@@ -1,3 +1,10 @@
+## [4.0.6](https://github.com/derBobby/java-pipelines/compare/v4.0.5...v4.0.6) (2025-02-23)
+
+
+### Bug Fixes
+
+* **pipeline:** remove cache input var ([fa51878](https://github.com/derBobby/java-pipelines/commit/fa5187892decea4922c746f99d3158c9d7fcd04b))
+
 ## [4.0.5](https://github.com/derBobby/java-pipelines/compare/v4.0.4...v4.0.5) (2025-02-23)
 
 
