@@ -37,7 +37,7 @@ jobs:
           restore-keys: |
             maven-${{ runner.os }}-
 
-      - name: Run Maven Tests
+      - name: Maven verify
         run: mvn --batch-mode --file pom.xml verify
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
