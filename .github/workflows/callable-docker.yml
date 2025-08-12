@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download from cache
         uses: actions/cache@v4
         with:

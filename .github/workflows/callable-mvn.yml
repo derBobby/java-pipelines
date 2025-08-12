@@ -28,7 +28,7 @@ jobs:
       app-version: ${{ steps.extract-app-version.outputs.app-version }}
     steps:
       - name: Checkout Git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK
         uses: actions/setup-java@v4
