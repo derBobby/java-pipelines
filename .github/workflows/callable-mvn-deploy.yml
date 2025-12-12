@@ -30,7 +30,7 @@ jobs:
           cache: maven
 
       - name: Cache Maven Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2/repository
           key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
@@ -49,7 +49,7 @@ jobs:
           cache: 'npm'
 
       - name: Cache Node.js Dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.npm
           key: npm-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -74,7 +74,7 @@ jobs:
         run: echo "jar-cache-key=${{ runner.os }}-jar-${{ hashFiles('target/*.jar') }}" >> $GITHUB_OUTPUT
 
       - name: Cache JAR file
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./target
           key: ${{ steps.jar-cache-key-step.outputs.jar-cache-key }}
